@@ -1,6 +1,6 @@
 # go-canal
 
-    go监听MySQL binlog 案例
+    go监听MySQL binlog 案例，不需要依赖其他服务
 
 ## 初始化命令
 
