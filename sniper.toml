@@ -5,8 +5,12 @@ LOG_LEVEL = "debug"
 ADDR = "IP:Port"
 USER = "user name"
 PASSWORD = "password"
+# 包含的数据库和表，正则匹配
+INCLUDE_TABLE_REGEX = ["db name\\.table name$", "db name\\.table name"]
+# 忽略的数据库和表
+EXCLUDE_TABLE_REGEX = []
 
-# 监听配置
-[DUMP]
-TABLE_DB = "Database name"
-TABLES = ["Table name", "Table name"]
+[CONFIG.DUMP]
+mysqldump = "mysqldump"
+DISCARD_ERR = true
+SKIP_MASTER_DATA = true
