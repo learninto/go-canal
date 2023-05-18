@@ -1,0 +1,12 @@
+# Global log level ：panic、fatal、error、warn、info、debug
+LOG_LEVEL = "debug"
+
+# MySQL conf
+ADDR = "IP:Port"
+USER = "user name"
+PASSWORD = "password"
+
+# 监听配置
+[DUMP]
+TABLE_DB = "Database name"
+TABLES = ["Table name", "Table name"]
