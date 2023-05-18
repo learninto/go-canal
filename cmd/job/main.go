@@ -6,6 +6,7 @@ import (
 	"github.com/go-mysql-org/go-mysql/mysql"
 	"github.com/go-mysql-org/go-mysql/replication"
 	"github.com/learninto/go-canal/pkg/oslib"
+	"github.com/learninto/goutil/conf"
 	"github.com/siddontang/go-log/log"
 	"math/rand"
 	"time"
@@ -107,15 +108,21 @@ func run(ctx context.Context) (err error) {
 	// Register a handler to handle RowsEvent
 	c.SetEventHandler(&MyEventHandler{})
 
-	// 从头开始监听
+	binName := conf.Get("mysql.position.name")
+	binPos := conf.GetInt("mysql.position.pos")
+
 	log.Info(ctx, "Go run")
-	if err = c.Run(); err != nil {
-		log.Error(ctx, "Go run Error：", err)
-		return
+
+	if binName == "" || binPos <= 0 { // 从头开始监听
+		err = c.Run()
+	} else { // 根据位置监听
+		startPos := mysql.Position{Name: binName, Pos: uint32(binPos)} // mysql-bin.000004, 1027
+		err = c.RunFrom(startPos)
 	}
 
-	////根据位置监听
-	//startPos := mysql.Position{Name: "mysql-bin.000004", Pos: 1027} // mysql-bin.000004, 1027
-	//_ = c.RunFrom(startPos)
+	if err != nil {
+		log.Error(ctx, "Go run Error：", err)
+	}
+
 	return
 }

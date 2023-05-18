@@ -10,6 +10,12 @@ INCLUDE_TABLE_REGEX = ["db name\\.table name$", "db name\\.table name"]
 # 忽略的数据库和表
 EXCLUDE_TABLE_REGEX = []
 
+# 执行MySQL binlog 开始监听的位置，如果不指定 则从头开始监听
+[MYSQL.POSITION]
+NAME = ""
+POS = ""
+
+
 [CONFIG.DUMP]
 mysqldump = "mysqldump"
 DISCARD_ERR = true
